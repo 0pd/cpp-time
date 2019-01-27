@@ -2,8 +2,10 @@
 
 struct shared
 {
-    static void static_print() { std::cout << "static print\n"; }
+    static void static_print();
 };
+
+void shared::static_print() { std::cout << "static print\n"; }
 
 extern "C"
 {
