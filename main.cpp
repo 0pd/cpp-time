@@ -2,14 +2,12 @@
 #include <iostream>
 #include "dynamic_library.h"
 
-typedef void (*function_type)();
-
 int main(int argc, char * argv[])
 {
     try
     {
         dynamic_library library(argv[1]);
-        auto f = library.load_function<function_type>(argv[2]);
+        auto f = library.load_function<void(*)()>(argv[2]);
         f();
     }
     catch (std::domain_error const& exception)
