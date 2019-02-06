@@ -30,19 +30,9 @@ private:
     {
         impl(T value);
 
-        virtual bool equals(impl_base const& other) const override
-        {
-            if (other.type() != type()) return false;
+        virtual bool equals(impl_base const& other) const override;
 
-            auto cast = dynamic_cast<impl<T> const&>(other);
-
-            return cast.value_ == value_;
-        }
-
-        virtual std::type_info const& type() const override
-        {
-            return typeid(T);
-        }
+        virtual std::type_info const& type() const override;
 
     private:
         T value_;
@@ -69,4 +59,20 @@ template<typename T>
 equality_comparable::impl<T>::impl(T value)
     : value_(value)
 {
+}
+
+template<typename T>
+bool equality_comparable::impl<T>::equals(impl_base const& other) const
+{
+    if (other.type() != type()) return false;
+
+    auto cast = dynamic_cast<impl<T> const&>(other);
+
+    return cast.value_ == value_;
+}
+
+template<typename T>
+std::type_info const& equality_comparable::impl<T>::type() const
+{
+    return typeid(T);
 }
